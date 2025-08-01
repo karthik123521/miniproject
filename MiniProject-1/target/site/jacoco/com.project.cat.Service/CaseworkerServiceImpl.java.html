@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CaseworkerServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MiniProject-1</a> &gt; <a href="index.source.html" class="el_package">com.project.cat.Service</a> &gt; <span class="el_source">CaseworkerServiceImpl.java</span></div><h1>CaseworkerServiceImpl.java</h1><pre class="source lang-java linenums">package com.project.cat.Service;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.List;
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.project.cat.Binding.CaseWorkerBinding;
+import com.project.cat.Binding.Login;
+import com.project.cat.Entity.CaseWorker;
+import com.project.cat.EntityRepo.CaseWorkerRepo;
+import com.project.cat.Properties.AppProperties;
+import com.project.cat.emailConfig.EmailUtility;
+
+@Service
+<span class="fc" id="L22">public class CaseworkerServiceImpl implements CaseWorkerService{</span>
+
+<span class="fc" id="L24">	private Logger logger = LoggerFactory.getLogger(CaseworkerServiceImpl.class);</span>
+
+	@Autowired
+	private CaseWorkerRepo caseWorkerRepo;
+	
+	public AppProperties prop;
+
+	@Autowired
+	private EmailUtility emailUtility;
+
+	
+
+	@Override
+	public List&lt;CaseWorker&gt; getAllUsers() {
+		
+<span class="nc" id="L39">		return caseWorkerRepo.findAll();</span>
+	}
+
+	@Override
+	public CaseWorker getUserById(String userId) {
+<span class="nc" id="L44">		return caseWorkerRepo.findById(userId).map(entity-&gt;{</span>
+<span class="nc" id="L45">			return entity;</span>
+<span class="nc" id="L46">		}).orElse(null);</span>
+		
+	}
+
+	@Override
+	public boolean deleteUserById(String userId) {
+<span class="nc" id="L52">		return caseWorkerRepo.findById(userId).map(entity-&gt;{</span>
+<span class="nc" id="L53">			caseWorkerRepo.deleteById(entity.getUserId());</span>
+<span class="nc" id="L54">			return true;</span>
+<span class="nc" id="L55">		}).orElse(false);</span>
+	}
+
+	@Override
+	public String login(Login login) {
+<span class="nc" id="L60">		return caseWorkerRepo.findByEmailAndPassword(login.getEmail(), login.getPassword())</span>
+<span class="nc" id="L61">		.map(entity-&gt;{</span>
+<span class="nc" id="L62">			return &quot;Logined suucessFully&quot;;</span>
+<span class="nc" id="L63">		}).orElse(&quot;Invalid Credentials&quot;);</span>
+		
+	}
+	@Override
+	public String saveCaseworker(CaseWorkerBinding caseWorkerBinding) {
+<span class="nc" id="L68">		CaseWorker caseWorker = new CaseWorker();</span>
+<span class="nc" id="L69">		BeanUtils.copyProperties(caseWorkerBinding, caseWorker);</span>
+<span class="nc" id="L70">		CaseWorker save = caseWorkerRepo.save(caseWorker);</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">		if (save != null) {</span>
+<span class="nc" id="L72">			String fileName=&quot;Reg-email-body.txt&quot;;</span>
+<span class="nc" id="L73">			String emailBody = readEmailBody(save.getFullName(),save.getPassword(),fileName);</span>
+<span class="nc" id="L74">			String subject = &quot;Your Registration is Success&quot;;</span>
+<span class="nc" id="L75">			emailUtility.sendMail(save.getEmail(),subject, emailBody);</span>
+<span class="nc" id="L76">			return &quot;Successfully saved&quot;;</span>
+		}
+		else
+<span class="nc" id="L79">			return &quot;Failed to save the CaseWorker&quot;;</span>
+	}
+	
+	
+	@Override
+	public String forgotPwd(String email)  {
+
+<span class="nc" id="L86">		Optional&lt;CaseWorker&gt; byEmail = caseWorkerRepo.findByEmail(email);</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">		if (byEmail.isPresent()) {</span>
+
+<span class="nc" id="L89">			CaseWorker caseWorker = byEmail.get();</span>
+<span class="nc" id="L90">			String subject = &quot;Forgot Password&quot;;</span>
+<span class="nc" id="L91">			String fileName = &quot;RECOVER-PWD-BODY.txt&quot;;</span>
+<span class="nc" id="L92">			String body = readEmailBody(caseWorker.getFullName(), caseWorker.getPassword(), fileName);</span>
+<span class="nc" id="L93">			boolean sendMail = emailUtility.sendMail(caseWorker.getEmail(), subject, body);</span>
+
+<span class="nc bnc" id="L95" title="All 2 branches missed.">			if (sendMail) {</span>
+<span class="nc" id="L96">				return &quot;Password sent to your registered mail&quot;;</span>
+			}
+<span class="nc" id="L98">			return null;</span>
+
+		}
+<span class="nc" id="L101">		return &quot;Email not found&quot;;</span>
+	}
+
+	@Override
+	public boolean changeAccountStatus(String userId, Boolean accStatus) {
+<span class="nc" id="L106">		return caseWorkerRepo.findById(userId).map(entity -&gt; {</span>
+<span class="nc" id="L107">			entity.setAccStatus(accStatus);</span>
+<span class="nc" id="L108">			caseWorkerRepo.save(entity);</span>
+<span class="nc" id="L109">			return true;</span>
+<span class="nc" id="L110">		}).orElse(false);</span>
+	}
+
+	@Override
+	public String updateCaseWorker(String userId, CaseWorkerBinding caseWorkerBinding) {
+<span class="nc" id="L115">		return caseWorkerRepo.findById(userId).</span>
+<span class="nc" id="L116">		map(entity-&gt;{</span>
+<span class="nc bnc" id="L117" title="All 4 branches missed.">			  if (caseWorkerBinding.getFullName() != null &amp;&amp; !caseWorkerBinding.getFullName().equalsIgnoreCase(entity.getFullName())) {</span>
+<span class="nc" id="L118">		            entity.setFullName(caseWorkerBinding.getFullName());</span>
+		        }
+
+<span class="nc bnc" id="L121" title="All 4 branches missed.">		        if (caseWorkerBinding.getEmail() != null &amp;&amp; !caseWorkerBinding.getEmail().equalsIgnoreCase(entity.getEmail())) {</span>
+<span class="nc" id="L122">		            entity.setEmail(caseWorkerBinding.getEmail());</span>
+		        }
+
+<span class="nc bnc" id="L125" title="All 4 branches missed.">		        if (caseWorkerBinding.getMobile() != null &amp;&amp; !caseWorkerBinding.getMobile().equals(entity.getMobile())) {</span>
+<span class="nc" id="L126">		            entity.setMobile(caseWorkerBinding.getMobile());</span>
+		        }
+<span class="nc bnc" id="L128" title="All 4 branches missed.">		        if (caseWorkerBinding.getGender() != null &amp;&amp; !entity.getGender().equals(caseWorkerBinding.getGender())) {</span>
+<span class="nc" id="L129">	                entity.setGender(caseWorkerBinding.getGender());</span>
+	            }
+<span class="nc bnc" id="L131" title="All 4 branches missed.">	            if (caseWorkerBinding.getDateOfBirth() != null &amp;&amp; !entity.getDateOfBirth().equals(caseWorkerBinding.getDateOfBirth())) {</span>
+<span class="nc" id="L132">	                entity.setDateOfBirth(caseWorkerBinding.getDateOfBirth());</span>
+	            }
+	            // Update password and account status without null checks
+<span class="nc bnc" id="L135" title="All 2 branches missed.">	            if (!entity.getPassword().equals(caseWorkerBinding.getPassword())) {</span>
+<span class="nc" id="L136">	                entity.setPassword(caseWorkerBinding.getPassword());</span>
+	            }
+<span class="nc bnc" id="L138" title="All 2 branches missed.">	            if (!entity.getAccStatus().equals(caseWorkerBinding.getAccStatus())) {</span>
+<span class="nc" id="L139">	                entity.setAccStatus(caseWorkerBinding.getAccStatus());</span>
+	            }
+<span class="nc" id="L141">	            caseWorkerRepo.save(entity);</span>
+		         
+<span class="nc" id="L143">			return &quot;Updated Successfully&quot;;</span>
+<span class="nc" id="L144">		}).orElse(&quot;No user details Found&quot;);</span>
+		
+	}
+
+	private String readEmailBody(String fullname, String pwd, String filename) {
+<span class="nc" id="L149">		String url = &quot;&quot;;</span>
+//		Optional&lt;UserMaster&gt; byId = userMasterRepo.findById(userId);
+//		// Check if the UserMaster is present
+//		if (byId.isPresent()) {
+//			UserMaster userMaster = byId.get();
+//			logger.info(&quot;UserMaster found: &quot; + userMaster); // Log the found user
+//			// Generate the URL only if the user's email is verified
+//			if (Boolean.FALSE.equals(userMaster.getIsVerifiedEmail())) {
+//				url = &quot;http://localhost:9393/api/verifyemail/&quot; + userId;
+//			}
+//		}
+<span class="nc" id="L160">		logger.info(&quot;Generated URL: &quot; + url);</span>
+
+<span class="nc" id="L162">		String mailBody = null;</span>
+
+<span class="nc" id="L164">		try (FileReader fr = new FileReader(filename); BufferedReader br = new BufferedReader(fr);) {</span>
+<span class="nc" id="L165">			StringBuilder builder = new StringBuilder();</span>
+<span class="nc" id="L166">			String line = br.readLine();</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">			while (line != null) {</span>
+<span class="nc" id="L168">				builder.append(line);</span>
+<span class="nc" id="L169">				line = br.readLine();</span>
+			}
+<span class="nc" id="L171">			br.close();</span>
+<span class="nc" id="L172">			mailBody = builder.toString();</span>
+<span class="nc" id="L173">			mailBody = mailBody.replace(&quot;{FULL-NAME}&quot;, fullname);</span>
+<span class="nc" id="L174">			mailBody = mailBody.replace(&quot;{TEMP-PWD}&quot;, pwd);</span>
+<span class="nc" id="L175">			mailBody = mailBody.replace(&quot;{URL}&quot;, url);</span>
+<span class="nc" id="L176">			mailBody = mailBody.replace(&quot;{PWD}&quot;, pwd);</span>
+<span class="nc" id="L177">		} catch (Exception e) {</span>
+<span class="nc" id="L178">			logger.error(&quot;Exception occured&quot;, e);</span>
+			;
+<span class="nc" id="L180">		}</span>
+<span class="nc" id="L181">		return mailBody;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

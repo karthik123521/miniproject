@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PlanCatServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MiniProject-1</a> &gt; <a href="index.source.html" class="el_package">com.project.cat.Service</a> &gt; <span class="el_source">PlanCatServiceImpl.java</span></div><h1>PlanCatServiceImpl.java</h1><pre class="source lang-java linenums">package com.project.cat.Service;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+
+import com.project.cat.Binding.PlanCatagoryBinding;
+import com.project.cat.Entity.PlanCatagoryEntity;
+import com.project.cat.EntityRepo.PlanCharRepo;
+import com.project.cat.Properties.AppProperties;
+import com.project.cat.constants.AppConstants;
+
+import lombok.extern.slf4j.Slf4j;
+
+<span class="fc" id="L14">@Slf4j</span>
+@Service
+public class PlanCatServiceImpl implements PlanCatService {
+
+	private PlanCharRepo planChar;
+	private AppProperties appPro;
+
+<span class="fc" id="L21">	public PlanCatServiceImpl(PlanCharRepo planChar, AppProperties appPro) {</span>
+<span class="fc" id="L22">		this.planChar = planChar;</span>
+<span class="fc" id="L23">		this.appPro = appPro;</span>
+<span class="fc" id="L24">	}</span>
+	//private static final Logger logger = LoggerFactory.getLogger(PlanCatService.class);
+
+	@Override
+	public String postPlanCat(PlanCatagoryBinding planEntity) {
+
+<span class="nc" id="L30">		planEntity.getCatName();</span>
+<span class="nc" id="L31">		planEntity.getCreateDate();</span>
+<span class="nc" id="L32">		planEntity.getCreatedBy();</span>
+<span class="nc" id="L33">		planEntity.getActiveSwitch();</span>
+
+<span class="nc" id="L35">		PlanCatagoryEntity plan=new PlanCatagoryEntity();</span>
+<span class="nc" id="L36">		BeanUtils.copyProperties(planEntity, plan);</span>
+<span class="nc" id="L37">		planChar.save(plan);</span>
+		
+<span class="nc" id="L39">		log.info(&quot;Cat working properly&quot;);</span>
+		
+<span class="nc" id="L41">		return appPro.getMessages().get(AppConstants.NEW_CAT_ADDED);</span>
+		//return AppConstants.NEW_CAT_ADDED;
+	}
+
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

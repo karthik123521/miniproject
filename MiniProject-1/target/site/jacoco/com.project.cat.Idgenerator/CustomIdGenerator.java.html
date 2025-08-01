@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CustomIdGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MiniProject-1</a> &gt; <a href="index.source.html" class="el_package">com.project.cat.Idgenerator</a> &gt; <span class="el_source">CustomIdGenerator.java</span></div><h1>CustomIdGenerator.java</h1><pre class="source lang-java linenums">package com.project.cat.Idgenerator;
+
+import java.io.Serializable;
+import java.util.Properties;
+
+import org.hibernate.HibernateException;
+import org.hibernate.MappingException;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
+import org.hibernate.internal.util.config.ConfigurationHelper;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.type.Type;
+import org.hibernate.type.spi.TypeConfiguration;
+
+<span class="fc" id="L15">public class CustomIdGenerator extends SequenceStyleGenerator  {</span>
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+
+	public final static String VALUE_PREFIX_PARAMETER_STRING = &quot;valuePrefix&quot;;
+	public static final String VALUE_PREFIX_PARAMETER_STRING_DEFAULT = &quot;&quot;;
+	private String valuePrefix;
+
+	public static final String NUMBER_FORMAT_PARAMETER = &quot;numberFormat&quot;;
+	public static final String NUMBER_FORMAT_DEFAULT = &quot;%d&quot;;
+	private String numberFormat;
+
+	public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
+<span class="nc" id="L34">		return valuePrefix + String.format(numberFormat, super.generate(session, object));</span>
+	}
+
+	@Override
+	public void configure(Type type, Properties params, ServiceRegistry serviceRegistry) throws MappingException {
+<span class="fc" id="L39">		super.configure(new TypeConfiguration().getBasicTypeRegistry().getRegisteredType(Long.class), params,</span>
+				serviceRegistry);
+<span class="fc" id="L41">		valuePrefix = ConfigurationHelper.getString(VALUE_PREFIX_PARAMETER_STRING, params,</span>
+				VALUE_PREFIX_PARAMETER_STRING_DEFAULT);
+<span class="fc" id="L43">		numberFormat = ConfigurationHelper.getString(NUMBER_FORMAT_PARAMETER, params, NUMBER_FORMAT_DEFAULT);</span>
+<span class="fc" id="L44">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
