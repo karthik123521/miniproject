@@ -1,0 +1,9 @@
+com\ed\testcontroller\EDControllerTest.class
+com\ed\testcontroller\EDControllerTest$CheckEligEndpoint.class
+com\ed\testService\EducationServiceImplTest$MEDICARE.class
+com\ed\EligibilityDetailsApplicationTests.class
+com\ed\testService\EducationServiceImplTest$NJW.class
+com\ed\testService\EducationServiceImplTest$SNAP.class
+com\ed\testService\EducationServiceImplTest$MEDICAID.class
+com\ed\testService\EducationServiceImplTest$CCAP.class
+com\ed\testService\EducationServiceImplTest.class

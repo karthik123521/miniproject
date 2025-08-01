@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EducationServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">EligibilityDetails</a> &gt; <a href="index.source.html" class="el_package">com.ed.Service</a> &gt; <span class="el_source">EducationServiceImpl.java</span></div><h1>EducationServiceImpl.java</h1><pre class="source lang-java linenums">package com.ed.Service;
+
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+
+import com.ed.Entity.EligibilityEntity;
+import com.ed.EntityRepo.EligibilityEntityRepo;
+import com.ed.FeignClient.FeignClientBE;
+import com.ed.FeignClient.FeignClientCO;
+import com.ed.FeignClient.FeignClientDob;
+import com.ed.FeignClient.FeignClientImpl;
+import com.ed.binding.ChildBinding;
+import com.ed.binding.CoTriggerBinding;
+import com.ed.binding.IncomeBinding;
+import com.ed.binding.Summaryfinal;
+import com.ed.dto.EligResponse;
+
+@Service
+public class EducationServiceImpl implements EducationService {
+
+	public EligibilityEntityRepo eligibilityEntityRepo;
+	public FeignClientImpl feignClientImpl;
+	public FeignClientDob feignClientDob;
+	public FeignClientCO feignClientCO;
+	public FeignClientBE feignClientBE;
+
+	public EducationServiceImpl(EligibilityEntityRepo eligibilityEntityRepo, FeignClientImpl feignClientImpl,
+			FeignClientDob feignClientDob, FeignClientCO feignClientCO, FeignClientBE feignClientBE) {
+<span class="fc" id="L34">		super();</span>
+<span class="fc" id="L35">		this.eligibilityEntityRepo = eligibilityEntityRepo;</span>
+<span class="fc" id="L36">		this.feignClientImpl = feignClientImpl;</span>
+<span class="fc" id="L37">		this.feignClientDob = feignClientDob;</span>
+<span class="fc" id="L38">		this.feignClientCO = feignClientCO;</span>
+<span class="fc" id="L39">		this.feignClientBE = feignClientBE;</span>
+<span class="fc" id="L40">	}</span>
+
+	@Override
+	public EligResponse chechEligibility(Integer caseNum) {
+<span class="fc" id="L44">		Summaryfinal body = feignClientImpl.getMethodName(caseNum).getBody();</span>
+<span class="fc" id="L45">		Integer appId = null;</span>
+<span class="fc" id="L46">		String planName = null;</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">		if (body != null) {</span>
+<span class="fc" id="L48">			appId = body.getAppId();</span>
+<span class="fc" id="L49">			planName = body.getPlanName();</span>
+		}
+
+<span class="fc" id="L52">		Integer age = 0;</span>
+<span class="fc" id="L53">		LocalDate body2 = feignClientDob.findDate(appId).getBody();</span>
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">		if (body2 != null) {</span>
+<span class="fc" id="L55">			LocalDate now = LocalDate.now();</span>
+<span class="fc" id="L56">			age = Period.between(body2, now).getYears();</span>
+		}
+
+<span class="fc" id="L59">		EligResponse chechElig = chechElig(body, appId, planName, age);</span>
+		
+<span class="fc" id="L61">		EligibilityEntity eligibilityEntity = new EligibilityEntity();</span>
+<span class="fc" id="L62">		eligibilityEntity.setPlanName(planName);</span>
+<span class="fc" id="L63">		eligibilityEntity.setCaseNum(caseNum);</span>
+<span class="fc" id="L64">		BeanUtils.copyProperties(chechElig, eligibilityEntity);</span>
+<span class="fc" id="L65">		eligibilityEntityRepo.save(eligibilityEntity);</span>
+
+<span class="fc" id="L67">		CoTriggerBinding coResponse = new CoTriggerBinding();</span>
+<span class="fc" id="L68">		coResponse.setCaseNum(caseNum);</span>
+<span class="fc" id="L69">		coResponse.setTrgStatus(&quot;Pending&quot;);</span>
+		//feignClientCO.saveTrigger(coResponse).getBody();
+
+<span class="fc" id="L72">		BeanUtils.copyProperties(eligibilityEntity, chechElig);</span>
+		
+<span class="fc" id="L74">		List&lt;EligResponse&gt; byPlanStatus = eligibilityEntityRepo.findByPlanStatus(true);</span>
+<span class="fc" id="L75">		feignClientBE.sendMailToBank(byPlanStatus);</span>
+
+<span class="fc" id="L77">		return chechElig;</span>
+	}
+
+	public EligResponse chechElig(Summaryfinal summary, Integer appId, String planName, Integer age) {
+
+<span class="fc" id="L82">		EligResponse eligResponse = new EligResponse();</span>
+<span class="fc" id="L83">		eligResponse.setPlanName(planName);</span>
+
+<span class="fc" id="L85">		IncomeBinding income = summary.getIncome();</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">		if ((&quot;SNAP&quot;).equals(planName)) {</span>
+<span class="fc" id="L87">			Double propertyIncome = income.getPropertyIncome();</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">			if (propertyIncome &lt;= 50000) {</span>
+<span class="fc" id="L89">				eligResponse.setPlanStatus(true);</span>
+<span class="fc" id="L90">				eligResponse.setBenefitAmount(10000.00);</span>
+			} else {
+<span class="fc" id="L92">				eligResponse.setDenialReason(&quot;DENIED&quot;);</span>
+<span class="fc" id="L93">				eligResponse.setPlanStatus(false);</span>
+<span class="fc" id="L94">				eligResponse.setBenefitAmount(0.00);</span>
+			}
+<span class="fc bfc" id="L96" title="All 2 branches covered.">		} else if ((&quot;CCAP&quot;).equals(planName)) {</span>
+<span class="fc" id="L97">			List&lt;ChildBinding&gt; child = summary.getChild();</span>
+<span class="fc" id="L98">			Boolean kidCondition = false;</span>
+<span class="fc" id="L99">			Boolean ageCondition = true;</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">			if (!child.isEmpty()) {</span>
+<span class="fc" id="L101">				kidCondition = true;</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">				for (ChildBinding childres : child) {</span>
+<span class="fc" id="L103">					Integer childAge = childres.getChildAge();</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">					if (childAge &lt;= 16) {</span>
+<span class="fc" id="L105">						eligResponse.setDenialReason(&quot;CHILD AGE IS GREATER THAN 16.&quot;);</span>
+<span class="fc" id="L106">						eligResponse.setPlanStatus(false);</span>
+<span class="fc" id="L107">						kidCondition = false;</span>
+
+<span class="fc" id="L109">						break;</span>
+					}
+
+<span class="fc" id="L112">				}</span>
+			}
+
+<span class="pc bpc" id="L115" title="2 of 6 branches missed.">			if (income.getMonthlySalaryIncome() &lt;= 50000 &amp;&amp; kidCondition &amp;&amp; ageCondition) {</span>
+<span class="fc" id="L116">				eligResponse.setPlanStatus(true);</span>
+<span class="fc" id="L117">				eligResponse.setBenefitAmount(15000.00);</span>
+			} else {
+<span class="fc" id="L119">				eligResponse.setPlanStatus(false);</span>
+<span class="fc" id="L120">				eligResponse.setDenialReason(&quot;No Kid fount&quot;);</span>
+			}
+
+<span class="fc bfc" id="L123" title="All 2 branches covered.">		} else if ((&quot;MEDICARE&quot;).equals(planName)) {</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">			if (age &gt;= 65) {</span>
+<span class="fc" id="L125">				eligResponse.setPlanStatus(true);</span>
+			} else {
+<span class="fc" id="L127">				eligResponse.setPlanStatus(false);</span>
+<span class="fc" id="L128">				eligResponse.setDenialReason(&quot;Age is not more than 65.&quot;);</span>
+			}
+<span class="fc bfc" id="L130" title="All 2 branches covered.">		} else if ((&quot;NJW&quot;).equals(planName)) {</span>
+<span class="fc" id="L131">			Integer gradYear = summary.getEducation().getGradYear();</span>
+<span class="fc" id="L132">			Integer year = LocalDate.now().getYear();</span>
+<span class="pc bpc" id="L133" title="1 of 4 branches missed.">			if (income.getMonthlySalaryIncome() &lt;= 0 &amp;&amp; gradYear &lt; year) {</span>
+<span class="fc" id="L134">				eligResponse.setPlanStatus(true);</span>
+<span class="fc" id="L135">				eligResponse.setBenefitAmount(12000.00);</span>
+			} else {
+<span class="fc" id="L137">				eligResponse.setPlanStatus(false);</span>
+<span class="fc" id="L138">				eligResponse.setDenialReason(&quot;rules not satisfied&quot;);</span>
+			}
+
+<span class="pc bpc" id="L141" title="1 of 2 branches missed.">		} else if ((&quot;MEDICAID&quot;).equals(planName)) {</span>
+<span class="pc bpc" id="L142" title="1 of 4 branches missed.">			if (income.getMonthlySalaryIncome() &lt; 5000 &amp;&amp; income.getPropertyIncome() == 0</span>
+<span class="pc bpc" id="L143" title="1 of 2 branches missed.">					&amp;&amp; income.getRentIncome() == 0) {</span>
+<span class="fc" id="L144">				eligResponse.setPlanStatus(true);</span>
+<span class="fc" id="L145">				eligResponse.setBenefitAmount(10000.00);</span>
+			} else {
+<span class="fc" id="L147">				eligResponse.setPlanStatus(false);</span>
+<span class="fc" id="L148">				eligResponse.setDenialReason(&quot;rules not satisfied&quot;);</span>
+			}
+		}
+
+<span class="fc bfc" id="L152" title="All 2 branches covered.">		if (eligResponse.getPlanStatus()) {</span>
+<span class="fc" id="L153">			eligResponse.setStartDate(LocalDate.now());</span>
+<span class="fc" id="L154">			eligResponse.setEndDate(LocalDate.now().plusMonths(12));</span>
+		} else {
+<span class="fc" id="L156">			eligResponse.setBenefitAmount(0.00);</span>
+		}
+
+<span class="fc" id="L159">		return eligResponse;</span>
+
+	}
+
+	@Override
+	public EligResponse getEligibility(Integer caseNum) {
+<span class="fc" id="L165">		Optional&lt;EligibilityEntity&gt; byId = eligibilityEntityRepo.findById(caseNum);</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">		if (byId.isPresent()) {</span>
+<span class="fc" id="L167">			EligibilityEntity eligibilityEntity = byId.get();</span>
+<span class="fc" id="L168">			EligResponse eligResponse = new EligResponse();</span>
+<span class="fc" id="L169">			BeanUtils.copyProperties(eligibilityEntity, eligResponse);</span>
+<span class="fc" id="L170">			return eligResponse;</span>
+		}
+<span class="fc" id="L172">		return null;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
