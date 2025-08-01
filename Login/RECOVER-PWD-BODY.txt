@@ -1,0 +1,13 @@
+Hi {FULL-NAME},<br/>
+<br/>
+
+Please find your TempPassword below.<br/>
+<br/>
+
+TempPassword: {PWD}<br/>
+<br/>
+
+Thanks<br/>
+<br/>
+Admin Team.<br/>
+<br/>
