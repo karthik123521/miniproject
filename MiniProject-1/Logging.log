@@ -1,0 +1,114 @@
+2025-04-15T10:45:38.400+05:30  INFO 1648 --- [MiniProject] [restartedMain] c.project.cat.MiniProject1Application    : Starting MiniProject1Application using Java 21.0.6 with PID 1648 (D:\Mini Project\MiniProject-1\target\classes started by DELL in D:\Mini Project\MiniProject-1)
+2025-04-15T10:45:38.401+05:30  INFO 1648 --- [MiniProject] [restartedMain] c.project.cat.MiniProject1Application    : No active profile set, falling back to 1 default profile: "default"
+2025-04-15T10:45:38.500+05:30  INFO 1648 --- [MiniProject] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-04-15T10:45:38.501+05:30  INFO 1648 --- [MiniProject] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 0 ms. Found 0 JPA repository interfaces.
+2025-04-15T10:45:38.562+05:30  INFO 1648 --- [MiniProject] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-04-15T10:45:38.563+05:30  INFO 1648 --- [MiniProject] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-04-15T10:45:38.563+05:30  INFO 1648 --- [MiniProject] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-15T10:45:38.577+05:30  INFO 1648 --- [MiniProject] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-04-15T10:45:38.578+05:30  INFO 1648 --- [MiniProject] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 176 ms
+2025-04-15T10:45:38.603+05:30  INFO 1648 --- [MiniProject] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-04-15T10:45:38.604+05:30  INFO 1648 --- [MiniProject] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-04-15T10:45:38.610+05:30  INFO 1648 --- [MiniProject] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-04-15T10:45:38.610+05:30  INFO 1648 --- [MiniProject] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Starting...
+2025-04-15T10:45:38.611+05:30  WARN 1648 --- [MiniProject] [restartedMain] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2025-04-15T10:45:38.621+05:30  INFO 1648 --- [MiniProject] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-7 - Added connection com.mysql.cj.jdbc.ConnectionImpl@cef6f19
+2025-04-15T10:45:38.621+05:30  INFO 1648 --- [MiniProject] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Start completed.
+2025-04-15T10:45:38.622+05:30  INFO 1648 --- [MiniProject] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-7)']
+	Database driver: undefined/unknown
+	Database version: 8.0.40
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-04-15T10:45:38.632+05:30  INFO 1648 --- [MiniProject] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-15T10:45:38.632+05:30  INFO 1648 --- [MiniProject] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-04-15T10:45:38.655+05:30  WARN 1648 --- [MiniProject] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-04-15T10:45:38.667+05:30  INFO 1648 --- [MiniProject] [restartedMain] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-15T10:45:38.735+05:30  INFO 1648 --- [MiniProject] [restartedMain] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2025-04-15T10:45:38.739+05:30  INFO 1648 --- [MiniProject] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-04-15T10:45:38.750+05:30  INFO 1648 --- [MiniProject] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-04-15T10:45:38.753+05:30  INFO 1648 --- [MiniProject] [restartedMain] c.project.cat.MiniProject1Application    : Started MiniProject1Application in 0.37 seconds (process running for 1596.609)
+2025-04-15T10:45:53.247+05:30  INFO 1648 --- [MiniProject] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-04-15T10:45:53.249+05:30  INFO 1648 --- [MiniProject] [Thread-27] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-15T10:45:53.264+05:30  INFO 1648 --- [MiniProject] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-04-15T10:45:53.265+05:30  INFO 1648 --- [MiniProject] [Thread-27] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-04-15T10:45:53.266+05:30  INFO 1648 --- [MiniProject] [Thread-27] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown initiated...
+2025-04-15T10:45:53.268+05:30  INFO 1648 --- [MiniProject] [Thread-27] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown completed.
+2025-04-15T10:45:53.323+05:30  INFO 1648 --- [miniproject] [restartedMain] c.project.cat.MiniProject1Application    : Starting MiniProject1Application using Java 21.0.6 with PID 1648 (D:\Mini Project\MiniProject-1\target\classes started by DELL in D:\Mini Project\MiniProject-1)
+2025-04-15T10:45:53.323+05:30  INFO 1648 --- [miniproject] [restartedMain] c.project.cat.MiniProject1Application    : No active profile set, falling back to 1 default profile: "default"
+2025-04-15T10:45:53.420+05:30  INFO 1648 --- [miniproject] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-04-15T10:45:53.422+05:30  INFO 1648 --- [miniproject] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 0 ms. Found 0 JPA repository interfaces.
+2025-04-15T10:45:53.471+05:30  INFO 1648 --- [miniproject] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-04-15T10:45:53.472+05:30  INFO 1648 --- [miniproject] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-04-15T10:45:53.472+05:30  INFO 1648 --- [miniproject] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-15T10:45:53.486+05:30  INFO 1648 --- [miniproject] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-04-15T10:45:53.486+05:30  INFO 1648 --- [miniproject] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 161 ms
+2025-04-15T10:45:53.510+05:30  INFO 1648 --- [miniproject] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-04-15T10:45:53.511+05:30  INFO 1648 --- [miniproject] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-04-15T10:45:53.516+05:30  INFO 1648 --- [miniproject] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-04-15T10:45:53.517+05:30  INFO 1648 --- [miniproject] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Starting...
+2025-04-15T10:45:53.517+05:30  WARN 1648 --- [miniproject] [restartedMain] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2025-04-15T10:45:53.526+05:30  INFO 1648 --- [miniproject] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-8 - Added connection com.mysql.cj.jdbc.ConnectionImpl@15ab7a03
+2025-04-15T10:45:53.526+05:30  INFO 1648 --- [miniproject] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Start completed.
+2025-04-15T10:45:53.527+05:30  INFO 1648 --- [miniproject] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-8)']
+	Database driver: undefined/unknown
+	Database version: 8.0.40
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-04-15T10:45:53.538+05:30  INFO 1648 --- [miniproject] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-15T10:45:53.538+05:30  INFO 1648 --- [miniproject] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-04-15T10:45:53.560+05:30  WARN 1648 --- [miniproject] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-04-15T10:45:53.569+05:30  INFO 1648 --- [miniproject] [restartedMain] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-15T10:45:53.651+05:30  INFO 1648 --- [miniproject] [restartedMain] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2025-04-15T10:45:53.657+05:30  INFO 1648 --- [miniproject] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-04-15T10:45:53.667+05:30  INFO 1648 --- [miniproject] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-04-15T10:45:53.671+05:30  INFO 1648 --- [miniproject] [restartedMain] c.project.cat.MiniProject1Application    : Started MiniProject1Application in 0.367 seconds (process running for 1611.527)
+2025-04-15T10:46:06.161+05:30  INFO 1648 --- [miniproject] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-04-15T10:46:06.163+05:30  INFO 1648 --- [miniproject] [Thread-31] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-15T10:46:06.174+05:30  INFO 1648 --- [miniproject] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-04-15T10:46:06.176+05:30  INFO 1648 --- [miniproject] [Thread-31] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-04-15T10:46:06.176+05:30  INFO 1648 --- [miniproject] [Thread-31] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Shutdown initiated...
+2025-04-15T10:46:06.179+05:30  INFO 1648 --- [miniproject] [Thread-31] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Shutdown completed.
+2025-04-15T10:46:06.232+05:30  INFO 1648 --- [Logging] [restartedMain] c.project.cat.MiniProject1Application    : Starting MiniProject1Application using Java 21.0.6 with PID 1648 (D:\Mini Project\MiniProject-1\target\classes started by DELL in D:\Mini Project\MiniProject-1)
+2025-04-15T10:46:06.232+05:30  INFO 1648 --- [Logging] [restartedMain] c.project.cat.MiniProject1Application    : No active profile set, falling back to 1 default profile: "default"
+2025-04-15T10:46:06.326+05:30  INFO 1648 --- [Logging] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-04-15T10:46:06.327+05:30  INFO 1648 --- [Logging] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 0 ms. Found 0 JPA repository interfaces.
+2025-04-15T10:46:06.375+05:30  INFO 1648 --- [Logging] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-04-15T10:46:06.376+05:30  INFO 1648 --- [Logging] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-04-15T10:46:06.376+05:30  INFO 1648 --- [Logging] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-15T10:46:06.389+05:30  INFO 1648 --- [Logging] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-04-15T10:46:06.389+05:30  INFO 1648 --- [Logging] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 155 ms
+2025-04-15T10:46:06.413+05:30  INFO 1648 --- [Logging] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-04-15T10:46:06.414+05:30  INFO 1648 --- [Logging] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-04-15T10:46:06.419+05:30  INFO 1648 --- [Logging] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-04-15T10:46:06.420+05:30  INFO 1648 --- [Logging] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Starting...
+2025-04-15T10:46:06.420+05:30  WARN 1648 --- [Logging] [restartedMain] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2025-04-15T10:46:06.430+05:30  INFO 1648 --- [Logging] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-9 - Added connection com.mysql.cj.jdbc.ConnectionImpl@61cefac6
+2025-04-15T10:46:06.430+05:30  INFO 1648 --- [Logging] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Start completed.
+2025-04-15T10:46:06.432+05:30  INFO 1648 --- [Logging] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-9)']
+	Database driver: undefined/unknown
+	Database version: 8.0.40
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-04-15T10:46:06.442+05:30  INFO 1648 --- [Logging] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-15T10:46:06.442+05:30  INFO 1648 --- [Logging] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-04-15T10:46:06.464+05:30  WARN 1648 --- [Logging] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-04-15T10:46:06.474+05:30  INFO 1648 --- [Logging] [restartedMain] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-15T10:46:06.543+05:30  INFO 1648 --- [Logging] [restartedMain] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2025-04-15T10:46:06.548+05:30  INFO 1648 --- [Logging] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-04-15T10:46:06.558+05:30  INFO 1648 --- [Logging] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-04-15T10:46:06.560+05:30  INFO 1648 --- [Logging] [restartedMain] c.project.cat.MiniProject1Application    : Started MiniProject1Application in 0.343 seconds (process running for 1624.417)
+2025-04-15T10:46:25.136+05:30  INFO 1648 --- [Logging] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-04-15T10:46:25.137+05:30  INFO 1648 --- [Logging] [Thread-35] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-15T10:46:25.149+05:30  INFO 1648 --- [Logging] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-04-15T10:46:25.150+05:30  INFO 1648 --- [Logging] [Thread-35] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-04-15T10:46:25.151+05:30  INFO 1648 --- [Logging] [Thread-35] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Shutdown initiated...
+2025-04-15T10:46:25.155+05:30  INFO 1648 --- [Logging] [Thread-35] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Shutdown completed.

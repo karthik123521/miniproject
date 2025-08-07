@@ -1,0 +1,6 @@
+2025-07-03T14:47:16.720+05:30  INFO 35184 --- [MiniProject-1] [RMI TCP Connection(395)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2025-07-03T14:47:16.812+05:30  INFO 35184 --- [MiniProject-1] [RMI TCP Connection(395)-127.0.0.1] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-03T14:47:16.841+05:30  INFO 35184 --- [MiniProject-1] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-07-03T14:47:16.864+05:30  INFO 35184 --- [MiniProject-1] [RMI TCP Connection(395)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-03T14:47:16.901+05:30  INFO 35184 --- [MiniProject-1] [RMI TCP Connection(395)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-07-03T14:47:16.906+05:30  INFO 35184 --- [MiniProject-1] [RMI TCP Connection(395)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

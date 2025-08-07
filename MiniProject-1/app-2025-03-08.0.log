@@ -1,0 +1,6 @@
+2025-07-08T11:03:20.845+05:30  INFO 4240 --- [MiniProject-1] [RMI TCP Connection(122)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2025-07-08T11:03:20.897+05:30  INFO 4240 --- [MiniProject-1] [RMI TCP Connection(122)-127.0.0.1] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-08T11:03:20.923+05:30  INFO 4240 --- [MiniProject-1] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-07-08T11:03:20.941+05:30  INFO 4240 --- [MiniProject-1] [RMI TCP Connection(122)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-08T11:03:20.970+05:30  INFO 4240 --- [MiniProject-1] [RMI TCP Connection(122)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-07-08T11:03:20.976+05:30  INFO 4240 --- [MiniProject-1] [RMI TCP Connection(122)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
